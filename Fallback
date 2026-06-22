@@ -1,0 +1,7 @@
+function openFallback(){
+let url =
+"https://wa.me/" + phone +
+"?text=Payment%20Amount:%20" + getTotal();
+
+window.open(url);
+}
