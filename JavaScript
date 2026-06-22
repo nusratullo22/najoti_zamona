@@ -1,0 +1,29 @@
+const phone = "+992171116644";
+
+/* ES KHATA */
+function payEskhata(){
+window.location.href =
+"eskhata://pay?phone=" + phone +
+"&amount=" + getTotal();
+}
+
+/* ALIF BANK */
+function payAlif(){
+window.location.href =
+"alifbank://transfer?phone=" + phone +
+"&amount=" + getTotal();
+}
+
+/* DUSHANBE CITY */
+function payDC(){
+window.location.href =
+"dushanbecity://pay?phone=" + phone +
+"&amount=" + getTotal();
+}
+
+/* TOTAL FUNCTION */
+function getTotal(){
+let t=0;
+cart.forEach(i=>t+=i.price);
+return t;
+}
