@@ -14,7 +14,6 @@ color:white;
 overflow-x:hidden;
 }
 
-/* BACKGROUND */
 canvas{
 position:fixed;
 top:0;left:0;
@@ -22,7 +21,6 @@ width:100%;height:100%;
 z-index:-1;
 }
 
-/* HEADER */
 .header{
 position:fixed;
 top:0;left:0;
@@ -46,7 +44,6 @@ cursor:pointer;
 font-size:12px;
 }
 
-/* LAYOUT */
 .hero{
 padding:90px 15px 10px;
 text-align:center;
@@ -59,7 +56,6 @@ gap:10px;
 padding:10px;
 }
 
-/* CARD */
 .card{
 background:rgba(255,255,255,0.05);
 border:1px solid rgba(255,255,255,0.1);
@@ -84,7 +80,6 @@ background:#25D366;
 color:white;
 }
 
-/* CART */
 .cart{
 position:fixed;
 right:-320px;
@@ -111,7 +106,6 @@ margin-top:10px;
 font-weight:bold;
 }
 
-/* ADMIN */
 .admin{
 position:fixed;
 bottom:10px;
@@ -131,7 +125,6 @@ border:none;
 border-radius:5px;
 }
 
-/* CHAT */
 .chat{
 position:fixed;
 bottom:10px;
@@ -145,7 +138,6 @@ backdrop-filter:blur(10px);
 }
 
 .chat p{margin:3px 0;opacity:0.8;}
-
 </style>
 </head>
 
@@ -159,7 +151,7 @@ backdrop-filter:blur(10px);
 </div>
 
 <div class="hero">
-<h2>🌌 ULTRA DIGITAL MARKET</h2>
+<h2>ULTRA DIGITAL MARKET</h2>
 <p>Admin + AI + WhatsApp system</p>
 </div>
 
@@ -169,11 +161,11 @@ backdrop-filter:blur(10px);
 <div class="cart" id="cart">
 <h3>🛒 Cart</h3>
 <div id="items"></div>
-<div class="total">Total: <span id="total">0</span></div>
+<div class="total">Total: <span id="total">0 сомонӣ</span></div>
 <button onclick="order()" style="margin-top:10px;width:100%;background:#25D366;border:none;padding:8px;color:white;">Checkout</button>
 </div>
 
-<!-- ADMIN PANEL -->
+<!-- ADMIN -->
 <div class="admin">
 <b>ADMIN</b><br>
 <input id="name" placeholder="name"/>
@@ -192,7 +184,6 @@ backdrop-filter:blur(10px);
 
 <script>
 
-/* DATA */
 let products = [
 {name:"Занҷабил",price:25,img:"https://images.unsplash.com/photo-1549880338-65ddcdfd017b"},
 {name:"Чойи сабз",price:30,img:"https://images.unsplash.com/photo-1585238342028-4b9a7c6c2d6f"}
@@ -200,7 +191,6 @@ let products = [
 
 let cart=[];
 
-/* RENDER */
 function render(){
 let g=document.getElementById("grid");
 g.innerHTML="";
@@ -210,13 +200,12 @@ g.innerHTML+=`
 <div class="card">
 <img src="${p.img}">
 <h3>${p.name}</h3>
-<button onclick="add(${i})">Add ${p.price}₽</button>
+<button onclick="add(${i})">Илова ${p.price} сомонӣ</button>
 </div>`;
 });
 }
 render();
 
-/* CART */
 function add(i){
 cart.push(products[i]);
 update();
@@ -232,31 +221,30 @@ let t=0;
 
 cart.forEach(c=>{
 t+=c.price;
-items.innerHTML+=`<div class="item"><span>${c.name}</span><span>${c.price}</span></div>`;
+items.innerHTML+=`<div class="item"><span>${c.name}</span><span>${c.price} сомонӣ</span></div>`;
 });
 
-document.getElementById("total").innerText=t;
+document.getElementById("total").innerText=t + " сомонӣ";
 }
 
 function toggleCart(){
 document.getElementById("cart").classList.toggle("active");
 }
 
-/* ORDER */
 function order(){
 let txt="Order:%0A";
 let t=0;
 
 cart.forEach(c=>{
-txt+=`- ${c.name} ${c.price}%0A`;
+txt+=`- ${c.name} ${c.price} сомонӣ%0A`;
 t+=c.price;
 });
 
-txt+=`%0ATotal: ${t}`;
+txt+=`%0ATotal: ${t} сомонӣ`;
+
 window.open("https://wa.me/992171116644?text="+txt);
 }
 
-/* ADMIN ADD */
 function addProduct(){
 let n=document.getElementById("name").value;
 let p=parseInt(document.getElementById("price").value);
@@ -268,7 +256,6 @@ products.push({name:n,price:p,img:img});
 render();
 }
 
-/* 3D BG */
 const c=document.getElementById("bg");
 const ctx=c.getContext("2d");
 
