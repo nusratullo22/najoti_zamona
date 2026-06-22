@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>najoti_zamona GOD MODE</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+
+body{
+background:#05070a;
+color:white;
+overflow-x:hidden;
+}
+
+/* BACKGROUND */
+canvas{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+z-index:-1;
+}
+
+/* HEADER */
+.header{
+position:fixed;
+top:0;left:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px;
+background:rgba(0,0,0,0.5);
+backdrop-filter:blur(10px);
+z-index:1000;
+}
+
+.header h1{font-size:14px;}
+
+.btn{
+padding:7px 10px;
+border-radius:10px;
+background:#25D366;
+cursor:pointer;
+font-size:12px;
+}
+
+/* LAYOUT */
+.hero{
+padding:90px 15px 10px;
+text-align:center;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+gap:10px;
+padding:10px;
+}
+
+/* CARD */
+.card{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:12px;
+overflow:hidden;
+backdrop-filter:blur(8px);
+}
+
+.card img{
+width:100%;
+height:100px;
+object-fit:cover;
+}
+
+.card h3{font-size:12px;padding:5px;}
+
+.card button{
+width:100%;
+padding:6px;
+border:none;
+background:#25D366;
+color:white;
+}
+
+/* CART */
+.cart{
+position:fixed;
+right:-320px;
+top:0;
+width:300px;
+height:100%;
+background:#0c1418;
+padding:12px;
+transition:0.3s;
+z-index:2000;
+}
+
+.cart.active{right:0;}
+
+.item{
+display:flex;
+justify-content:space-between;
+font-size:12px;
+margin:5px 0;
+}
+
+.total{
+margin-top:10px;
+font-weight:bold;
+}
+
+/* ADMIN */
+.admin{
+position:fixed;
+bottom:10px;
+left:10px;
+background:rgba(0,0,0,0.6);
+padding:10px;
+border-radius:10px;
+font-size:12px;
+backdrop-filter:blur(10px);
+}
+
+.admin input{
+width:100%;
+margin:3px 0;
+padding:5px;
+border:none;
+border-radius:5px;
+}
+
+/* CHAT */
+.chat{
+position:fixed;
+bottom:10px;
+right:10px;
+width:200px;
+background:rgba(0,0,0,0.6);
+padding:10px;
+border-radius:10px;
+font-size:11px;
+backdrop-filter:blur(10px);
+}
+
+.chat p{margin:3px 0;opacity:0.8;}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="header">
+<h1>GOD MODE SHOP</h1>
+<div class="btn" onclick="toggleCart()">🛒 <span id="c">0</span></div>
+</div>
+
+<div class="hero">
+<h2>🌌 ULTRA DIGITAL MARKET</h2>
+<p>Admin + AI + WhatsApp system</p>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<!-- CART -->
+<div class="cart" id="cart">
+<h3>🛒 Cart</h3>
+<div id="items"></div>
+<div class="total">Total: <span id="total">0</span></div>
+<button onclick="order()" style="margin-top:10px;width:100%;background:#25D366;border:none;padding:8px;color:white;">Checkout</button>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin">
+<b>ADMIN</b><br>
+<input id="name" placeholder="name"/>
+<input id="price" placeholder="price"/>
+<input id="img" placeholder="image url"/>
+<button onclick="addProduct()" class="btn">ADD</button>
+</div>
+
+<!-- CHAT -->
+<div class="chat">
+<b>AI CHAT</b>
+<p>Салом 👋</p>
+<p>Ба ман маҳсулот илова кун</p>
+<p>ё корзинаро кушо</p>
+</div>
+
+<script>
+
+/* DATA */
+let products = [
+{name:"Занҷабил",price:25,img:"https://images.unsplash.com/photo-1549880338-65ddcdfd017b"},
+{name:"Чойи сабз",price:30,img:"https://images.unsplash.com/photo-1585238342028-4b9a7c6c2d6f"}
+];
+
+let cart=[];
+
+/* RENDER */
+function render(){
+let g=document.getElementById("grid");
+g.innerHTML="";
+
+products.forEach((p,i)=>{
+g.innerHTML+=`
+<div class="card">
+<img src="${p.img}">
+<h3>${p.name}</h3>
+<button onclick="add(${i})">Add ${p.price}₽</button>
+</div>`;
+});
+}
+render();
+
+/* CART */
+function add(i){
+cart.push(products[i]);
+update();
+}
+
+function update(){
+document.getElementById("c").innerText=cart.length;
+
+let items=document.getElementById("items");
+items.innerHTML="";
+
+let t=0;
+
+cart.forEach(c=>{
+t+=c.price;
+items.innerHTML+=`<div class="item"><span>${c.name}</span><span>${c.price}</span></div>`;
+});
+
+document.getElementById("total").innerText=t;
+}
+
+function toggleCart(){
+document.getElementById("cart").classList.toggle("active");
+}
+
+/* ORDER */
+function order(){
+let txt="Order:%0A";
+let t=0;
+
+cart.forEach(c=>{
+txt+=`- ${c.name} ${c.price}%0A`;
+t+=c.price;
+});
+
+txt+=`%0ATotal: ${t}`;
+window.open("https://wa.me/992171116644?text="+txt);
+}
+
+/* ADMIN ADD */
+function addProduct(){
+let n=document.getElementById("name").value;
+let p=parseInt(document.getElementById("price").value);
+let img=document.getElementById("img").value;
+
+if(!n||!p||!img)return;
+
+products.push({name:n,price:p,img:img});
+render();
+}
+
+/* 3D BG */
+const c=document.getElementById("bg");
+const ctx=c.getContext("2d");
+
+c.width=innerWidth;
+c.height=innerHeight;
+
+let p=[];
+for(let i=0;i<60;i++){
+p.push({x:Math.random()*c.width,y:Math.random()*c.height});
+}
+
+function anim(){
+ctx.clearRect(0,0,c.width,c.height);
+p.forEach(a=>{
+ctx.fillStyle="rgba(0,255,150,0.4)";
+ctx.fillRect(a.x,a.y,2,2);
+a.x+=Math.random()-0.5;
+a.y+=Math.random()-0.5;
+});
+requestAnimationFrame(anim);
+}
+anim();
+
+</script>
+
+</body>
+</html>
