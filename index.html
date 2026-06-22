@@ -78,6 +78,7 @@ padding:6px;
 border:none;
 background:#25D366;
 color:white;
+cursor:pointer;
 }
 
 .cart{
@@ -106,38 +107,6 @@ margin-top:10px;
 font-weight:bold;
 }
 
-.admin{
-position:fixed;
-bottom:10px;
-left:10px;
-background:rgba(0,0,0,0.6);
-padding:10px;
-border-radius:10px;
-font-size:12px;
-backdrop-filter:blur(10px);
-}
-
-.admin input{
-width:100%;
-margin:3px 0;
-padding:5px;
-border:none;
-border-radius:5px;
-}
-
-.chat{
-position:fixed;
-bottom:10px;
-right:10px;
-width:200px;
-background:rgba(0,0,0,0.6);
-padding:10px;
-border-radius:10px;
-font-size:11px;
-backdrop-filter:blur(10px);
-}
-
-.chat p{margin:3px 0;opacity:0.8;}
 </style>
 </head>
 
@@ -152,7 +121,7 @@ backdrop-filter:blur(10px);
 
 <div class="hero">
 <h2>ULTRA DIGITAL MARKET</h2>
-<p>Admin + AI + WhatsApp system</p>
+<p>Admin + WhatsApp system</p>
 </div>
 
 <div class="grid" id="grid"></div>
@@ -165,25 +134,9 @@ backdrop-filter:blur(10px);
 <button onclick="order()" style="margin-top:10px;width:100%;background:#25D366;border:none;padding:8px;color:white;">Checkout</button>
 </div>
 
-<!-- ADMIN -->
-<div class="admin">
-<b>ADMIN</b><br>
-<input id="name" placeholder="name"/>
-<input id="price" placeholder="price"/>
-<input id="img" placeholder="image url"/>
-<button onclick="addProduct()" class="btn">ADD</button>
-</div>
-
-<!-- CHAT -->
-<div class="chat">
-<b>AI CHAT</b>
-<p>Салом 👋</p>
-<p>Ба ман маҳсулот илова кун</p>
-<p>ё корзинаро кушо</p>
-</div>
-
 <script>
 
+/* DATA */
 let products = [
 {name:"Занҷабил",price:25,img:"https://images.unsplash.com/photo-1549880338-65ddcdfd017b"},
 {name:"Чойи сабз",price:30,img:"https://images.unsplash.com/photo-1585238342028-4b9a7c6c2d6f"}
@@ -191,6 +144,7 @@ let products = [
 
 let cart=[];
 
+/* RENDER */
 function render(){
 let g=document.getElementById("grid");
 g.innerHTML="";
@@ -206,6 +160,7 @@ g.innerHTML+=`
 }
 render();
 
+/* CART */
 function add(i){
 cart.push(products[i]);
 update();
@@ -221,16 +176,22 @@ let t=0;
 
 cart.forEach(c=>{
 t+=c.price;
-items.innerHTML+=`<div class="item"><span>${c.name}</span><span>${c.price} сомонӣ</span></div>`;
+items.innerHTML+=`
+<div class="item">
+<span>${c.name}</span>
+<span>${c.price} сомонӣ</span>
+</div>`;
 });
 
 document.getElementById("total").innerText=t + " сомонӣ";
 }
 
+/* CART TOGGLE */
 function toggleCart(){
 document.getElementById("cart").classList.toggle("active");
 }
 
+/* ORDER */
 function order(){
 let txt="Order:%0A";
 let t=0;
@@ -245,17 +206,7 @@ txt+=`%0ATotal: ${t} сомонӣ`;
 window.open("https://wa.me/992171116644?text="+txt);
 }
 
-function addProduct(){
-let n=document.getElementById("name").value;
-let p=parseInt(document.getElementById("price").value);
-let img=document.getElementById("img").value;
-
-if(!n||!p||!img)return;
-
-products.push({name:n,price:p,img:img});
-render();
-}
-
+/* BG */
 const c=document.getElementById("bg");
 const ctx=c.getContext("2d");
 
